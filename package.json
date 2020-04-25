@@ -1,0 +1,31 @@
+{
+  "name": "simple-pair",
+  "version": "0.1.0",
+  "description": "Simple desktop share web app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jean-m-ribeiro/simple-pair.git"
+  },
+  "author": "Jean Ribeiro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jean-m-ribeiro/simple-pair/issues"
+  },
+  "homepage": "https://github.com/jean-m-ribeiro/simple-pair#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "browserify": "^16.5.1",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.2",
+    "express": "^4.17.1",
+    "simple-peer": "^9.7.0",
+    "socket.io": "^2.3.0",
+    "wrtc": "^0.4.4"
+  }
+}
