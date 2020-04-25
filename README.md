@@ -1,2 +1,2 @@
 # simple-pair
-Simple desktop share web app
+Simple multiplayer screen sharing web app

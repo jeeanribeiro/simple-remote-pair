@@ -1,0 +1,13 @@
+body {
+    align-items: center;
+    display: flex;
+    margin: 0;
+    justify-content: center;
+}
+
+video {
+    background-color: #111;
+    height: 100vh;
+    object-fit: contain;
+    width: 100vw;
+}
