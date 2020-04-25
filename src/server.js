@@ -18,6 +18,7 @@ app.use('/', (req, res) => {
 })
 
 let connectedUsers = [];
+let hostId;
 
 io.on('connection', socket => {
 
@@ -27,7 +28,7 @@ io.on('connection', socket => {
     }
     connectedUsers.push(connectedUser);
     console.log('User connection\n', connectedUsers);
-    socket.broadcast.emit('updateConnections', connectedUsers);
+    socket.broadcast.emit('newConnection');
 
     socket.on('disconnect', () => {
         i = 0;
@@ -41,7 +42,18 @@ io.on('connection', socket => {
             }
         })
         console.log('User disconnection\n', connectedUsers);
-        socket.broadcast.emit('updateConnections', connectedUsers);
+    })
+
+    socket.on('newHost', () => {
+        hostId = socket.id;
+    })
+
+    socket.on('newOffer', offer => {
+        io.to(connectedUsers[connectedUsers.length - 1].id).emit('newOffer', offer);
+    })
+
+    socket.on('newAnswer', answer => {
+        io.to(hostId).emit('newAnswer', answer);
     })
 
 })
