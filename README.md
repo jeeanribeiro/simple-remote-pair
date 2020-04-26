@@ -1,8 +1,8 @@
 <h1 align="center">simple-remote-pair :busts_in_silhouette:</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
-  <a href="https://github.com/jean-m-ribeiro/simple-pair#readme" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
+  <a href="https://www.npmjs.com/package/simple-remote-pair">
+    <img alt="downloads" src="https://img.shields.io/npm/dm/simple-remote-pair.svg?color=blue" target="_blank" />
   </a>
   <a href="https://github.com/jean-m-ribeiro/simple-pair/graphs/commit-activity" target="_blank">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
@@ -15,7 +15,7 @@
   </a>
 </p>
 
-> Simple remote pairing web app built with [RobotJS](https://github.com/octalmage/robotjs) for controlling mouse/keyboard and [Socket.io](https://github.com/socketio/socket.io) for sharing mouse/keyboard events and signaling to start a [simple-peer](https://github.com/feross/simple-peer) connection via WebRTC to stream the host screen (needs VPN to work).
+> Simple multiplayer remote pairing web app built with [RobotJS](https://github.com/octalmage/robotjs) for controlling mouse/keyboard and [Socket.io](https://github.com/socketio/socket.io) for sharing mouse/keyboard events and signaling to start a [simple-peer](https://github.com/feross/simple-peer) connection via WebRTC to stream the host screen (needs VPN to work).
 
 ### 🏠 [Homepage](https://github.com/jean-m-ribeiro/simple-pair#readme)
 
@@ -31,7 +31,6 @@ If you are the host access `http://localhost:3000/#host` in your browser, if not
 
 ## Planned features
 
-- One-to-many peer screen streaming
 - Keyboard main functions
 - Mouse main functions
 - User friendly
