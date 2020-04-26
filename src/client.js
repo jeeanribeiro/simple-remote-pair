@@ -4,8 +4,6 @@ var wrtc = require('wrtc');
 
 var socket = io(window.location.href);
 
-var video = document.querySelector('video');
-
 socket.on('connection', console.log('socket connected'));
 
 if (location.hash === '#host') {
@@ -16,22 +14,30 @@ if (location.hash === '#host') {
 
     socket.on('newConnection', function() {
         peerList.push(new Peer({ initiator: true, trickle: false, wrtc: wrtc }));
-        lastPeer = peerList[peerList.length - 1];
+        peer = peerList[peerList.length - 1];
 
-        lastPeer.on('signal', function(offer) {
+        peer.on('signal', function(offer) {
             socket.emit('newOffer', offer);
         })
 
         socket.on('newAnswer', function(answer) {
-            lastPeer.signal(JSON.stringify(answer));
+            peer.signal(JSON.stringify(answer));
         })
 
-        lastPeer.on('data', function (data) {
+        peer.on('data', function (data) {
             console.log('data: ' + data);
         })
 
-        lastPeer.on('error', function(error) {
+        peer.on('error', function(error) {
             console.log('error', error);
+        })
+
+        navigator.mediaDevices.getDisplayMedia({ video: true })
+            .then(function(stream) {
+                peer.addStream(stream);
+            })
+            .catch(function(error) {
+                console.log('error', error);
         })
     })
 
@@ -48,6 +54,8 @@ if (location.hash === '#host') {
     })
 
     peer.on('stream', function(stream) {
+        var video = document.querySelector('video');
+
         if ('srcObject' in video) {
             video.srcObject = stream;
         } else {
@@ -62,5 +70,23 @@ if (location.hash === '#host') {
     peer.on('error', function(error) {
         console.log('error', error);
     })
+
+    window.onload = function() {
+        var video = document.querySelector('video');
+
+        video.addEventListener('mousedown', function (event) {
+            console.log('click');
+            socket.emit('mouseClick', {
+                x: event.clientX - video.getBoundingClientRect().left,
+                y: event.clientY - video.getBoundingClientRect().top,
+                videoWidth: video.getBoundingClientRect().width,
+                videoHeight: video.getBoundingClientRect().height
+            })
+        })
+
+        window.addEventListener('keypress', function (event) {
+            socket.emit('keyPress', event.key)
+        })
+    }
 
 }
