@@ -1,9 +1,6 @@
 <h1 align="center">simple-remote-pair :busts_in_silhouette:</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
-  <a href="https://www.npmjs.com/package/simple-remote-pair">
-    <img alt="downloads" src="https://img.shields.io/npm/dm/simple-remote-pair.svg?color=blue" target="_blank" />
-  </a>
+  <img src="https://img.shields.io/npm/v/simple-remote-pair.svg?orange=blue" />
   <a href="https://github.com/jean-m-ribeiro/simple-pair/graphs/commit-activity" target="_blank">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
   </a>
