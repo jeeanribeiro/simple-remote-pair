@@ -4,40 +4,63 @@ var wrtc = require('wrtc');
 
 var socket = io(window.location.href);
 
-socket.on('connection', console.log('socket connected'));
+var sessionId;
+socket.on('connect', function() {
+    sessionId = socket.id;
+});
 
 if (location.hash === '#host') {
 
     socket.emit('newHost');
 
-    var peerList = [];
+    var hostStream;
+    window.onload = function() {
+        var button = document.createElement('button');
+        document.querySelector('div').appendChild(button);
 
-    socket.on('newConnection', function() {
-        peerList.push(new Peer({ initiator: true, trickle: false, wrtc: wrtc }));
-        peer = peerList[peerList.length - 1];
+        button.addEventListener('click', function() {
+            navigator.mediaDevices.getDisplayMedia({ video: true })
+                .then(function(stream) {
+                    hostStream = stream;
+                })
+                .catch(function(error) {
+                    console.log('error', error);
+                })
+        })
+    }
 
-        peer.on('signal', function(offer) {
-            socket.emit('newOffer', offer);
+    var connectionList = [];
+
+    socket.on('newConnection', function(socketId) {
+        var connection = {
+            socketId: socketId,
+            peer: new Peer({ initiator: true, trickle: false, wrtc: wrtc, stream: hostStream }),
+            offer: '',
+            answer: ''
+        }
+
+        connection.peer.on('signal', function(offer) {
+            connection.offer = JSON.stringify(offer);
+            socket.emit('newOffer', connection);
         })
 
         socket.on('newAnswer', function(answer) {
-            peer.signal(JSON.stringify(answer));
+            if (answer.socketId === connection.socketId) {
+                connection.answer = answer;
+                connection.peer.signal(connection.answer.answer);
+            }
         })
 
-        peer.on('data', function (data) {
+        connectionList.push(connection);
+    })
+
+    connectionList.forEach(function (connection) {
+        connection.peer.on('data', function (data) {
             console.log('data: ' + data);
         })
 
-        peer.on('error', function(error) {
+        connection.peer.on('error', function(error) {
             console.log('error', error);
-        })
-
-        navigator.mediaDevices.getDisplayMedia({ video: true })
-            .then(function(stream) {
-                peer.addStream(stream);
-            })
-            .catch(function(error) {
-                console.log('error', error);
         })
     })
 
@@ -45,11 +68,16 @@ if (location.hash === '#host') {
 
     var peer = new Peer({ trickle: false, wrtc: wrtc });
 
-    socket.on('newOffer', function(offer) {
-        peer.signal(JSON.stringify(offer));
+    socket.on('newOffer', function(connection) {
+        console.log(connection);
+        peer.signal(connection.offer);
     })
 
     peer.on('signal', function(answer) {
+        answer = {
+            answer: JSON.stringify(answer),
+            socketId: sessionId
+        }
         socket.emit('newAnswer', answer);
     })
 
