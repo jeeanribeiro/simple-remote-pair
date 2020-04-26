@@ -24,7 +24,6 @@
 ```sh
 git clone https://github.com/jean-m-ribeiro/simple-remote-pair.git
 cd simple-remote-pair
-npm run build
 npm run start
 ```
 
