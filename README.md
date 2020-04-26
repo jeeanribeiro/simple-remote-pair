@@ -15,7 +15,7 @@
   </a>
 </p>
 
-> Simple multiplayer screen sharing web app
+> Simple remote pairing web app
 
 ### 🏠 [Homepage](https://github.com/jean-m-ribeiro/simple-pair#readme)
 
