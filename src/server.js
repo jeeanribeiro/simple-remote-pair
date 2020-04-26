@@ -10,7 +10,7 @@ const io = require('socket.io')(server);
 const robot = require('robotjs');
 
 app.use(express.static(path.join(__dirname, '../public')));
-app.set('views', path.join( __dirname, '../public'));
+app.set('views', path.join(__dirname, '../public'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.use(cors());
@@ -30,7 +30,13 @@ io.on('connection', socket => {
     }
     connectedUsers.push(connectedUser);
     console.log('User connection\n', connectedUsers);
-    socket.broadcast.emit('newConnection');
+
+    socket.on('newHost', () => {
+        console.log('new host');
+        hostId = socket.id;
+    })
+
+    io.to(hostId).emit('newConnection', socket.id);
 
     socket.on('disconnect', () => {
         i = 0;
@@ -46,12 +52,8 @@ io.on('connection', socket => {
         console.log('User disconnection\n', connectedUsers);
     })
 
-    socket.on('newHost', () => {
-        hostId = socket.id;
-    })
-
-    socket.on('newOffer', offer => {
-        io.to(connectedUsers[connectedUsers.length - 1].id).emit('newOffer', offer);
+    socket.on('newOffer', data => {
+        io.to(data.socketId).emit('newOffer', data);
     })
 
     socket.on('newAnswer', answer => {
