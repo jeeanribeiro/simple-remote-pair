@@ -1,7 +1,7 @@
 {
-  "name": "simple-pair",
+  "name": "simple-remote-pair",
   "version": "0.1.0",
-  "description": "Simple multiplayer screen sharing web app",
+  "description": "Simple remote pairing web app",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
