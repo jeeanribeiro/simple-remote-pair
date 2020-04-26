@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to simple-remote-pair 👋</h1>
+<h1 align="center">simple-remote-pair :busts_in_silhouette:</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/jean-m-ribeiro/simple-pair#readme" target="_blank">
@@ -15,21 +15,27 @@
   </a>
 </p>
 
-> Simple remote pairing web app
+> Simple remote pairing web app built with [RobotJS](https://github.com/octalmage/robotjs) for controlling mouse/keyboard and [Socket.io](https://github.com/socketio/socket.io) for sharing mouse/keyboard events and signaling to start a [simple-peer](https://github.com/feross/simple-peer) connection via WebRTC to stream the host screen (needs VPN to work).
 
 ### 🏠 [Homepage](https://github.com/jean-m-ribeiro/simple-pair#readme)
-
-## Install
-
-```sh
-npm install
-```
 
 ## Usage
 
 ```sh
+git clone https://github.com/jean-m-ribeiro/simple-remote-pair.git
+cd simple-remote-pair
+npm run build
 npm run start
 ```
+
+If you are the host access `http://localhost:3000/#host` in your browser, if not, just access by using the host IP in VPN or LAN, it will looks like `http://192.168.15.60:3000`
+
+## Planned features
+
+- One-to-many peer screen streaming
+- Keyboard main functions
+- Mouse main functions
+- User friendly
 
 ## Author
 
