@@ -1,5 +1,5 @@
 # Bundle
-public/bundle.js
+public/bundle.min.js
 
 # Logs
 logs
