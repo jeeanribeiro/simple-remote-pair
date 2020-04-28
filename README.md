@@ -21,6 +21,7 @@
 ```sh
 git clone https://github.com/jean-m-ribeiro/simple-remote-pair.git
 cd simple-remote-pair
+npm install
 npm run start
 ```
 
@@ -36,7 +37,7 @@ If you are the host access `http://localhost:3000/#host` in your browser, if not
 
 👤 **Jean Ribeiro**
 
-* Website: http://jeanribeiro.me
+* Website: https://jeanribeiro.me
 * Twitter: [@jeeanribeiro](https://twitter.com/jeeanribeiro)
 * Github: [@jean-m-ribeiro](https://github.com/jean-m-ribeiro)
 * LinkedIn: [@jean-m-ribeiro](https://linkedin.com/in/jean-m-ribeiro)
