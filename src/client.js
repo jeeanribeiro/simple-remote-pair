@@ -102,13 +102,48 @@ if (location.hash === '#host') {
     window.onload = function() {
         var video = document.querySelector('video');
 
-        video.addEventListener('mousedown', function (event) {
-            console.log('click');
-            socket.emit('mouseClick', {
+        video.addEventListener('click', function (event) {
+            socket.emit('leftClick', {
                 x: event.clientX - video.getBoundingClientRect().left,
                 y: event.clientY - video.getBoundingClientRect().top,
                 videoWidth: video.getBoundingClientRect().width,
-                videoHeight: video.getBoundingClientRect().height
+                videoHeight: video.getBoundingClientRect().height,
+            })
+        })
+
+        video.addEventListener('contextmenu', function (event) {
+            socket.emit('rightClick', {
+                x: event.clientX - video.getBoundingClientRect().left,
+                y: event.clientY - video.getBoundingClientRect().top,
+                videoWidth: video.getBoundingClientRect().width,
+                videoHeight: video.getBoundingClientRect().height,
+            })
+        })
+
+        video.addEventListener('dblclick', function (event) {
+            socket.emit('doubleClick', {
+                x: event.clientX - video.getBoundingClientRect().left,
+                y: event.clientY - video.getBoundingClientRect().top,
+                videoWidth: video.getBoundingClientRect().width,
+                videoHeight: video.getBoundingClientRect().height,
+            })
+        })
+
+        video.addEventListener('mousedown', function () {
+            video.addEventListener('mousemove', function (event) {
+                socket.emit('dragMouse', {
+                    x: event.clientX - video.getBoundingClientRect().left,
+                    y: event.clientY - video.getBoundingClientRect().top,
+                    videoWidth: video.getBoundingClientRect().width,
+                    videoHeight: video.getBoundingClientRect().height,
+                })
+            })
+        })
+
+        video.addEventListener('wheel', function(event) {
+            socket.emit('scroll', {
+                x: event.deltaX,
+                y: event.deltaY,
             })
         })
 
