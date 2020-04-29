@@ -92,9 +92,6 @@ io.on('connection', socket => {
         robot.scrollMouse(delta.x, delta.y);
     })
 
-    socket.on('keyPress', key => {
-        console.log(key);
-
     socket.on('keyDown', key => {
         if (key.length !== 1 && key !== ' ') {
             key = dict[key];
