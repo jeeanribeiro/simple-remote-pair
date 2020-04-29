@@ -62,12 +62,38 @@ io.on('connection', socket => {
         io.to(hostId).emit('newAnswer', answer);
     })
 
-    socket.on('mouseClick', coordinates => {
+    socket.on('leftClick', coordinates => {
         x = (robot.getScreenSize().width * coordinates.x) / coordinates.videoWidth;
         y = (robot.getScreenSize().height * coordinates.y) / coordinates.videoHeight;
         robot.moveMouse(x, y);
         robot.mouseClick('left');
     })
+
+    socket.on('rightClick', coordinates => {
+        x = (robot.getScreenSize().width * coordinates.x) / coordinates.videoWidth;
+        y = (robot.getScreenSize().height * coordinates.y) / coordinates.videoHeight;
+        robot.moveMouse(x, y);
+        robot.mouseClick('right');
+    })
+
+    socket.on('doubleClick', coordinates => {
+        x = (robot.getScreenSize().width * coordinates.x) / coordinates.videoWidth;
+        y = (robot.getScreenSize().height * coordinates.y) / coordinates.videoHeight;
+        robot.mouseClick('left', true);
+    })
+
+    socket.on('dragMouse', coordinates => {
+        x = (robot.getScreenSize().width * coordinates.x) / coordinates.videoWidth;
+        y = (robot.getScreenSize().height * coordinates.y) / coordinates.videoHeight;
+        robot.dragMouse(x, y);
+    })
+
+    socket.on('scroll', delta => {
+        robot.scrollMouse(delta.x, delta.y);
+    })
+
+    socket.on('keyPress', key => {
+        console.log(key);
 
     socket.on('keyDown', key => {
         if (key.length !== 1 && key !== ' ') {
