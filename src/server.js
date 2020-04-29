@@ -9,6 +9,8 @@ const io = require('socket.io')(server);
 
 const robot = require('robotjs');
 
+const dict = require('./dict');
+
 app.use(express.static(path.join(__dirname, '../public')));
 app.set('views', path.join(__dirname, '../public'));
 app.engine('html', require('ejs').renderFile);
@@ -68,7 +70,10 @@ io.on('connection', socket => {
     })
 
     socket.on('keyDown', key => {
-        console.log(key);
+        if (key.length !== 1 && key !== ' ') {
+            key = dict[key];
+        }
+
         try {
             robot.keyTap(key);
         } catch (err) {
