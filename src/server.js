@@ -67,7 +67,7 @@ io.on('connection', socket => {
         robot.mouseClick('left');
     })
 
-    socket.on('keyPress', key => {
+    socket.on('keyDown', key => {
         console.log(key);
         try {
             robot.keyTap(key);
