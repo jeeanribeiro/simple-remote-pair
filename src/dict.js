@@ -19,7 +19,7 @@ module.exports = {
     'F8': 'f8',
     'F9': 'f9',
     'F10': 'f10',
-    'F10': 'f10',
+    'F11': 'f11',
     'F12': 'f12',
     'Home': 'home',
     'Insert': 'insert',
