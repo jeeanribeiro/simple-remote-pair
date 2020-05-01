@@ -15,8 +15,11 @@ if (location.hash === '#host') {
 
     var hostStream;
     window.onload = function() {
-        var button = document.createElement('button');
-        document.querySelector('div').appendChild(button);
+        var button = document.getElementById('displayToggle');
+        button.style.display = 'block';
+
+        var video = document.getElementById('display');
+        display.style.display = 'none';
 
         button.addEventListener('click', function() {
             navigator.mediaDevices.getDisplayMedia({ video: true })

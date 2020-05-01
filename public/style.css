@@ -15,12 +15,14 @@ div {
 }
 
 button {
-    height: 50px;
-    width: 50px;
+    display: none;
+    height: 100px;
+    width: 100px;
 }
 
 video {
     background-color: #111;
+    display: block;
     max-height: 100%;
     max-width: 100%;
     object-fit: contain;
