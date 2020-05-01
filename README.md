@@ -29,9 +29,8 @@ If you are the host access `http://localhost:3000/#host` in your browser, if not
 
 ## Planned features
 
-- Keyboard main functions
-- Mouse main functions
-- User friendly
+- npx
+- Electron app with easy usability
 
 ## Author
 
