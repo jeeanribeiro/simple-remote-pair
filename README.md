@@ -1,5 +1,5 @@
-<h1 align="center">simple-remote-pair :busts_in_silhouette:</h1>
-<p>
+<h1 align="center"><img src="http://jeanribeiro.me/host/imgs/simple-remote-pair.png"></h1>
+<p align="center">
   <img src="https://img.shields.io/npm/v/simple-remote-pair.svg?orange=blue" />
   <a href="https://github.com/jean-m-ribeiro/simple-pair/graphs/commit-activity" target="_blank">
     <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" />
@@ -12,15 +12,16 @@
   </a>
 </p>
 
-> Simple multiplayer remote pairing web app built with [RobotJS](https://github.com/octalmage/robotjs) for controlling mouse/keyboard and [Socket.io](https://github.com/socketio/socket.io) for sharing mouse/keyboard events and signaling to start a [simple-peer](https://github.com/feross/simple-peer) connection via WebRTC to stream the host screen (needs VPN to work).
+> Simple multiplayer remote pairing web app built with [RobotJS](https://github.com/octalmage/robotjs) for controlling mouse/keyboard and [Socket.io](https://github.com/socketio/socket.io) for sharing mouse/keyboard events and signaling to start a [simple-peer](https://github.com/feross/simple-peer) connection via WebRTC to stream the host screen (needs VPN or LAN to work).
 
-### 🏠 [Homepage](https://github.com/jean-m-ribeiro/simple-pair#readme)
+### 🏠 [Homepage](https://jean-m-ribeiro.github.io/simple-remote-pair/)
 
 ## Usage
 
 ```sh
 git clone https://github.com/jean-m-ribeiro/simple-remote-pair.git
 cd simple-remote-pair
+npm install
 npm run start
 ```
 
@@ -28,15 +29,14 @@ If you are the host access `http://localhost:3000/#host` in your browser, if not
 
 ## Planned features
 
-- Keyboard main functions
-- Mouse main functions
-- User friendly
+- npx
+- Electron app with easy usability
 
 ## Author
 
 👤 **Jean Ribeiro**
 
-* Website: http://jeanribeiro.me
+* Website: https://jeanribeiro.me
 * Twitter: [@jeeanribeiro](https://twitter.com/jeeanribeiro)
 * Github: [@jean-m-ribeiro](https://github.com/jean-m-ribeiro)
 * LinkedIn: [@jean-m-ribeiro](https://linkedin.com/in/jean-m-ribeiro)
