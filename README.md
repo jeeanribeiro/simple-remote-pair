@@ -12,7 +12,7 @@
   </a>
 </p>
 
-> Simple multiplayer remote pairing web app built with [RobotJS](https://github.com/octalmage/robotjs) for controlling mouse/keyboard and [Socket.io](https://github.com/socketio/socket.io) for sharing mouse/keyboard events and signaling to start a [simple-peer](https://github.com/feross/simple-peer) connection via WebRTC to stream the host screen (needs VPN to work).
+> Simple multiplayer remote pairing web app built with [RobotJS](https://github.com/octalmage/robotjs) for controlling mouse/keyboard and [Socket.io](https://github.com/socketio/socket.io) for sharing mouse/keyboard events and signaling to start a [simple-peer](https://github.com/feross/simple-peer) connection via WebRTC to stream the host screen (needs VPN or LAN to work).
 
 ### 🏠 [Homepage](https://jean-m-ribeiro.github.io/simple-remote-pair/)
 
