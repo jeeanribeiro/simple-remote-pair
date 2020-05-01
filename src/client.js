@@ -132,15 +132,21 @@ if (location.hash === '#host') {
             })
         })
 
-        video.addEventListener('mousedown', function () {
-            video.addEventListener('mousemove', function (event) {
-                socket.emit('dragMouse', {
-                    x: event.clientX - video.getBoundingClientRect().left,
-                    y: event.clientY - video.getBoundingClientRect().top,
-                    videoWidth: video.getBoundingClientRect().width,
-                    videoHeight: video.getBoundingClientRect().height,
-                })
+        function emitDragMouse (event) {
+            socket.emit('dragMouse', {
+                x: event.clientX - video.getBoundingClientRect().left,
+                y: event.clientY - video.getBoundingClientRect().top,
+                videoWidth: video.getBoundingClientRect().width,
+                videoHeight: video.getBoundingClientRect().height,
             })
+        }
+
+        video.addEventListener('mousedown', function () {
+            video.addEventListener('mousemove', emitDragMouse);
+        })
+
+        video.addEventListener('mouseup', function() {
+            video.removeEventListener('mousemove', emitDragMouse);
         })
 
         video.addEventListener('wheel', function(event) {
