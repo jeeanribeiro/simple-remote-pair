@@ -147,6 +147,11 @@ if (location.hash === '#host') {
         window.addEventListener('keydown', function (event) {
             socket.emit('keyDown', event.key)
         })
+
+        window.addEventListener('keyup', function (event) {
+            socket.emit('keyUp', event.key)
+        })
+
     }
 
 }

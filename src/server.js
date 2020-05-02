@@ -104,7 +104,19 @@ io.on('connection', socket => {
         }
 
         try {
-            robot.keyTap(key);
+            robot.keyToggle(key, 'down');
+        } catch (err) {
+            console.log('error', err);
+        }
+    })
+
+    socket.on('keyUp', key => {
+        if (key.length !== 1 && key !== ' ') {
+            key = dict[key];
+        }
+
+        try {
+            robot.keyToggle(key, 'up');
         } catch (err) {
             console.log('error', err);
         }
