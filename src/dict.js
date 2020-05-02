@@ -6,6 +6,7 @@ module.exports = {
     'ArrowLeft': 'left',
     'Backspace': 'backspace',
     'Control': 'control',
+    'Delete': 'delete',
     'End': 'end',
     'Enter': 'enter',
     'Escape': 'escape',
