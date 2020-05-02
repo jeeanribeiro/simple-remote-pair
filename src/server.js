@@ -74,17 +74,11 @@ io.on('connection', socket => {
 
     socket.on('leftClick', coords => {
         robot.moveMouse(convertCoord(coords, 'x'), convertCoord(coords, 'y'));
-        robot.mouseClick('left');
     })
 
     socket.on('rightClick', coords => {
         robot.moveMouse(convertCoord(coords, 'x'), convertCoord(coords, 'y'));
         robot.mouseClick('right');
-    })
-
-    socket.on('doubleClick', coords => {
-        robot.moveMouse(convertCoord(coords, 'x'), convertCoord(coords, 'y'));
-        robot.mouseClick('left', true);
     })
 
     socket.on('mouseDown', coords => {

@@ -123,10 +123,6 @@ if (location.hash === '#host') {
             socket.emit('rightClick', new coordsAndSize(event, video));
         })
 
-        video.addEventListener('dblclick', function (event) {
-            socket.emit('doubleClick', new coordsAndSize(event, video));
-        })
-
         function emitDragMouse (event) {
             socket.emit('dragMouse', new coordsAndSize(event, video));
         }
