@@ -62,30 +62,36 @@ io.on('connection', socket => {
         io.to(hostId).emit('newAnswer', answer);
     })
 
-    socket.on('leftClick', coordinates => {
-        x = (robot.getScreenSize().width * coordinates.x) / coordinates.videoWidth;
-        y = (robot.getScreenSize().height * coordinates.y) / coordinates.videoHeight;
-        robot.moveMouse(x, y);
-        robot.mouseClick('left');
+    function convertCoord(coords, xy) {
+        if (xy === 'x') {
+            return (robot.getScreenSize().width * coords.x) / coords.videoWidth;
+        } else if (xy === 'y') {
+            return (robot.getScreenSize().height * coords.y) / coords.videoHeight;
+        } else {
+            return;
+        }
+    }
+
+    socket.on('leftClick', coords => {
+        robot.moveMouse(convertCoord(coords, 'x'), convertCoord(coords, 'y'));
     })
 
-    socket.on('rightClick', coordinates => {
-        x = (robot.getScreenSize().width * coordinates.x) / coordinates.videoWidth;
-        y = (robot.getScreenSize().height * coordinates.y) / coordinates.videoHeight;
-        robot.moveMouse(x, y);
+    socket.on('rightClick', coords => {
+        robot.moveMouse(convertCoord(coords, 'x'), convertCoord(coords, 'y'));
         robot.mouseClick('right');
     })
 
-    socket.on('doubleClick', coordinates => {
-        x = (robot.getScreenSize().width * coordinates.x) / coordinates.videoWidth;
-        y = (robot.getScreenSize().height * coordinates.y) / coordinates.videoHeight;
-        robot.mouseClick('left', true);
+    socket.on('mouseDown', coords => {
+        robot.moveMouse(convertCoord(coords, 'x'), convertCoord(coords, 'y'));
+        robot.mouseToggle('down');
     })
 
-    socket.on('dragMouse', coordinates => {
-        x = (robot.getScreenSize().width * coordinates.x) / coordinates.videoWidth;
-        y = (robot.getScreenSize().height * coordinates.y) / coordinates.videoHeight;
-        robot.dragMouse(x, y);
+    socket.on('dragMouse', coords => {
+        robot.dragMouse(convertCoord(coords, 'x'), convertCoord(coords, 'y'));
+    })
+
+    socket.on('mouseUp', () => {
+        robot.mouseToggle('up');
     })
 
     socket.on('scroll', delta => {

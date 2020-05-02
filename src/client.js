@@ -105,42 +105,36 @@ if (location.hash === '#host') {
     window.onload = function() {
         var video = document.querySelector('video');
 
+        class coordsAndSize {
+            constructor(event, video) {
+                this.x = event.clientX - video.getBoundingClientRect().left;
+                this.y = event.clientY - video.getBoundingClientRect().top;
+                this.videoWidth = video.getBoundingClientRect().width;
+                this.videoHeight = video.getBoundingClientRect().height;
+            }
+        }
+
         video.addEventListener('click', function (event) {
-            socket.emit('leftClick', {
-                x: event.clientX - video.getBoundingClientRect().left,
-                y: event.clientY - video.getBoundingClientRect().top,
-                videoWidth: video.getBoundingClientRect().width,
-                videoHeight: video.getBoundingClientRect().height,
-            })
+            socket.emit('leftClick', new coordsAndSize(event, video));
         })
 
         video.addEventListener('contextmenu', function (event) {
-            socket.emit('rightClick', {
-                x: event.clientX - video.getBoundingClientRect().left,
-                y: event.clientY - video.getBoundingClientRect().top,
-                videoWidth: video.getBoundingClientRect().width,
-                videoHeight: video.getBoundingClientRect().height,
-            })
+            event.preventDefault();
+            socket.emit('rightClick', new coordsAndSize(event, video));
         })
 
-        video.addEventListener('dblclick', function (event) {
-            socket.emit('doubleClick', {
-                x: event.clientX - video.getBoundingClientRect().left,
-                y: event.clientY - video.getBoundingClientRect().top,
-                videoWidth: video.getBoundingClientRect().width,
-                videoHeight: video.getBoundingClientRect().height,
-            })
-        })
+        function emitDragMouse (event) {
+            socket.emit('dragMouse', new coordsAndSize(event, video));
+        }
 
         video.addEventListener('mousedown', function () {
-            video.addEventListener('mousemove', function (event) {
-                socket.emit('dragMouse', {
-                    x: event.clientX - video.getBoundingClientRect().left,
-                    y: event.clientY - video.getBoundingClientRect().top,
-                    videoWidth: video.getBoundingClientRect().width,
-                    videoHeight: video.getBoundingClientRect().height,
-                })
-            })
+            socket.emit('mouseDown', new coordsAndSize(event, video));
+            video.addEventListener('mousemove', emitDragMouse);
+        })
+
+        video.addEventListener('mouseup', function() {
+            socket.emit('mouseUp');
+            video.removeEventListener('mousemove', emitDragMouse);
         })
 
         video.addEventListener('wheel', function(event) {
