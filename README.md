@@ -38,8 +38,8 @@ If you are the host access `http://localhost:3000/#host` in your browser, if not
 
 * Website: https://jeanribeiro.me
 * Twitter: [@jeeanribeiro](https://twitter.com/jeeanribeiro)
-* Github: [@jean-m-ribeiro](https://github.com/jean-m-ribeiro)
-* LinkedIn: [@jean-m-ribeiro](https://linkedin.com/in/jean-m-ribeiro)
+* Github: [@jeeanribeiro](https://github.com/jeeanribeiro)
+* LinkedIn: [@jeeanribeiro](https://linkedin.com/in/jeeanribeiro)
 
 ## 🤝 Contributing
 
