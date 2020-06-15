@@ -22,7 +22,7 @@ if (location.hash === '#host') {
         display.style.display = 'none';
 
         button.addEventListener('click', function() {
-            navigator.mediaDevices.getDisplayMedia({ video: true })
+            navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
                 .then(function(stream) {
                     hostStream = stream;
                 })
