@@ -1,6 +1,6 @@
 {
   "name": "simple-remote-pair",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Simple remote pairing web app",
   "main": "server.js",
   "scripts": {
@@ -26,6 +26,7 @@
     "cors": "^2.8.5",
     "ejs": "^3.1.2",
     "express": "^4.17.1",
+    "key-event-plus": "^1.0.1",
     "robotjs": "^0.6.0",
     "simple-peer": "^9.7.0",
     "socket.io": "^2.3.0",
