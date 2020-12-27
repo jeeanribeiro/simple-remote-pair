@@ -71,6 +71,20 @@ if (location.hash === '#host') {
 
     var peer = new Peer({ trickle: false, wrtc: wrtc });
 
+    var isDraggingMouse = false;
+    
+    var lastMouseMove = {
+        x: 0,
+        y: 0,
+        time: Date.now()
+    };
+    
+    var mouseMoveTimerId = 0;
+    
+    var maxMousePositionUpdatesPerSecond = 12;
+
+    var minMouseMoveInterval =  1000 / maxMousePositionUpdatesPerSecond;
+
     socket.on('newOffer', function(connection) {
         console.log(connection);
         peer.signal(connection.offer);
@@ -123,18 +137,36 @@ if (location.hash === '#host') {
             socket.emit('rightClick', new coordsAndSize(event, video));
         })
 
-        function emitDragMouse (event) {
-            socket.emit('dragMouse', new coordsAndSize(event, video));
-        }
+        video.addEventListener('mousemove', function (event) {
+            if (lastMouseMove.x === event.clientX && lastMouseMove.y === event.clientY) return;
+
+            var currentTime = Date.now();
+
+            if (currentTime - lastMouseMove.time < minMouseMoveInterval) {
+                clearTimeout(mouseMoveTimerId);
+
+                mouseMoveTimerId = setTimeout(function () {
+                    socket.emit(isDraggingMouse ? 'dragMouse' : 'mouseMove', new coordsAndSize(event, video));
+                }, minMouseMoveInterval);
+
+                return;
+            }
+
+            socket.emit(isDraggingMouse ? 'dragMouse' : 'mouseMove', new coordsAndSize(event, video));
+
+            lastMouseMove.x = event.clientX;
+            lastMouseMove.y = event.clientY;
+            lastMouseMove.time = currentTime;
+        })
 
         video.addEventListener('mousedown', function () {
             socket.emit('mouseDown', new coordsAndSize(event, video));
-            video.addEventListener('mousemove', emitDragMouse);
+            isDraggingMouse = true;
         })
 
         video.addEventListener('mouseup', function() {
             socket.emit('mouseUp');
-            video.removeEventListener('mousemove', emitDragMouse);
+            isDraggingMouse = false;
         })
 
         video.addEventListener('wheel', function(event) {
