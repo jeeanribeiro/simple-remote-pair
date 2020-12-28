@@ -86,6 +86,10 @@ io.on('connection', socket => {
         robot.mouseToggle('down');
     })
 
+    socket.on('mouseMove', coords => {
+        robot.moveMouse(convertCoord(coords, 'x'), convertCoord(coords, 'y'));
+    })
+
     socket.on('dragMouse', coords => {
         robot.dragMouse(convertCoord(coords, 'x'), convertCoord(coords, 'y'));
     })
