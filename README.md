@@ -64,7 +64,7 @@ See the [node-gyp readme](https://github.com/nodejs/node-gyp#installation) for m
 
 👤 **Jean Ribeiro**
 
-* Website: https://jeanribeiro.me
+* Website: https://jeanribeiro.dev
 * Twitter: [@jeeanribeiro](https://twitter.com/jeeanribeiro)
 * Github: [@jeeanribeiro](https://github.com/jeeanribeiro)
 * LinkedIn: [@jeeanribeiro](https://linkedin.com/in/jeeanribeiro)
