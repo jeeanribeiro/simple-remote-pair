@@ -1,4 +1,4 @@
-<h1 align="center"><img src="http://jeanribeiro.me/host/imgs/simple-remote-pair.png"></h1>
+<h1 align="center"><img src="https://raw.githubusercontent.com/jeeanribeiro/simple-remote-pair/master/logo.png"></h1>
 <p align="center">
   <img src="https://img.shields.io/npm/v/simple-remote-pair.svg?orange=blue" />
   <a href="https://github.com/jean-m-ribeiro/simple-pair/graphs/commit-activity" target="_blank">
