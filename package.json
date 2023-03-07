@@ -31,6 +31,6 @@
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",
     "terser": "^4.6.12",
-    "wrtc": "^0.4.4"
+    "wrtc": "^0.4.7"
   }
 }
