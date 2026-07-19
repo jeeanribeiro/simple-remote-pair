@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <title>simple remote pair — self-hosted screen sharing with remote control</title>
+    <meta
+      name="description"
+      content="Self-hosted pair programming: stream your screen over WebRTC and hand mouse & keyboard to guests on your LAN or VPN. No cloud, no accounts."
+    />
+    <meta property="og:title" content="simple remote pair" />
+    <meta
+      property="og:description"
+      content="Self-hosted pair programming: screen sharing over WebRTC with remote mouse & keyboard. No cloud, no accounts."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jeeanribeiro.github.io/simple-remote-pair/" />
+    <style>
+      :root {
+        --bg: #0b0e14;
+        --bg-raise: #121722;
+        --panel: #161d2b;
+        --edge: #232d42;
+        --text: #e8ecf4;
+        --muted: #9aa5bb;
+        --accent: #34d0b6;
+        --accent-2: #7db7f7;
+        --radius: 14px;
+        color-scheme: dark;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f4f6fa;
+          --bg-raise: #ffffff;
+          --panel: #ffffff;
+          --edge: #d9dfeb;
+          --text: #16202e;
+          --muted: #5a6577;
+          --accent: #0d9e86;
+          --accent-2: #0b72c3;
+          color-scheme: light;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font: 17px/1.6 system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: var(--accent); }
+      .wrap { max-width: 980px; margin: 0 auto; padding: 0 1.25rem; }
+      header.hero { text-align: center; padding: 5rem 0 3rem; }
+      .wordmark {
+        margin: 0;
+        font-size: clamp(2.4rem, 7vw, 4rem);
+        font-weight: 800;
+        background: linear-gradient(100deg, var(--accent), var(--accent-2));
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      .tagline { color: var(--muted); font-size: 1.25rem; max-width: 54ch; margin: 1rem auto 0; }
+      .cta {
+        display: inline-block;
+        margin: 2rem auto 0;
+        background: var(--bg-raise);
+        border: 1px solid var(--edge);
+        border-radius: var(--radius);
+        padding: 1rem 1.6rem;
+        font-family: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, monospace;
+        font-size: 1.15rem;
+        user-select: all;
+      }
+      .cta::before { content: '$ '; color: var(--accent); }
+      .links { margin-top: 1.4rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+      .shot { display: block; width: 100%; border-radius: var(--radius); border: 1px solid var(--edge); box-shadow: 0 20px 60px rgb(0 0 0 / 40%); }
+      figure { margin: 0; }
+      figcaption { color: var(--muted); font-size: 0.9rem; text-align: center; margin-top: 0.75rem; }
+      section { padding: 3rem 0; }
+      h2 { font-size: 1.6rem; margin: 0 0 1.5rem; text-align: center; }
+      .grid { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--edge);
+        border-radius: var(--radius);
+        padding: 1.4rem;
+      }
+      .card h3 { margin: 0 0 0.5rem; font-size: 1.05rem; }
+      .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+      .steps { counter-reset: step; display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      .step { position: relative; padding-left: 3.2rem; }
+      .step::before {
+        counter-increment: step;
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        top: 0.1rem;
+        width: 2.2rem;
+        height: 2.2rem;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: var(--accent);
+        color: #04211c;
+        font-weight: 800;
+      }
+      .step h3 { margin: 0 0 0.3rem; font-size: 1.02rem; }
+      .step p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+      footer { border-top: 1px solid var(--edge); color: var(--muted); text-align: center; padding: 2.5rem 1rem; font-size: 0.9rem; }
+      .note { color: var(--muted); font-size: 0.9rem; text-align: center; max-width: 62ch; margin: 1.5rem auto 0; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="hero">
+        <h1 class="wordmark">simple remote pair</h1>
+        <p class="tagline">
+          Self-hosted pair programming: stream your screen over WebRTC and hand mouse &amp; keyboard
+          to guests on your LAN or VPN. No cloud, no accounts.
+        </p>
+        <div class="cta">npx simple-remote-pair</div>
+        <p class="links">
+          <a href="https://github.com/jeeanribeiro/simple-remote-pair">GitHub</a>
+          <a href="https://www.npmjs.com/package/simple-remote-pair">npm</a>
+          <a href="https://github.com/jeeanribeiro/simple-remote-pair#security-model">Security model</a>
+        </p>
+      </header>
+
+      <figure>
+        <img class="shot" src="assets/guest.png" alt="Guest view of a live session: remote screen with control available, resolution and latency stats in the toolbar" />
+        <figcaption>The guest view — click to take control, double-Esc to hand it back.</figcaption>
+      </figure>
+
+      <section>
+        <h2>Three steps to pairing</h2>
+        <div class="steps">
+          <div class="step">
+            <h3>Run the server</h3>
+            <p><code>npx simple-remote-pair</code> on the machine to share. It prints LAN URLs and a QR code.</p>
+          </div>
+          <div class="step">
+            <h3>Start hosting</h3>
+            <p>Open the URL, click <em>Start hosting</em>, share your screen and the 6-character code.</p>
+          </div>
+          <div class="step">
+            <h3>Guests join &amp; drive</h3>
+            <p>Any modern browser, nothing to install. You decide who can control, pause anyone, anytime.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Why it's nice</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Peer-to-peer video</h3>
+            <p>The screen stream is WebRTC, browser to browser. The server only relays the handshake and input — your pixels never transit a third party.</p>
+          </div>
+          <div class="card">
+            <h3>Control you can trust</h3>
+            <p>Session codes gate everything. Per-guest control toggles, pause-all, kick — and every held key is released the moment a guest drops.</p>
+          </div>
+          <div class="card">
+            <h3>Zero build-tool pain</h3>
+            <p>Input injection uses prebuilt native binaries. If they're unavailable, the server degrades to view-only instead of failing to install.</p>
+          </div>
+          <div class="card">
+            <h3>Fast and tiny</h3>
+            <p>The client JS is ~10 kB gzipped. Three runtime dependencies. Input is coalesced and rate-limited for a mouse that feels local.</p>
+          </div>
+          <div class="card">
+            <h3>Accessible</h3>
+            <p>Keyboard operable, visible focus, live announcements, reduced-motion aware — and an explicit take/release model, so no keyboard traps.</p>
+          </div>
+          <div class="card">
+            <h3>Tested end to end</h3>
+            <p>Real WebRTC streams and real WebSocket sessions under test: unit, integration and Playwright e2e suites run in CI on every push.</p>
+          </div>
+        </div>
+        <p class="note">
+          Built for trusted networks — an office LAN, your home network, or a VPN like Tailscale.
+          Not meant to face the public internet.
+        </p>
+      </section>
+
+      <figure>
+        <img class="shot" src="assets/host.png" alt="Host view: session code, QR join link, screen preview and connected guest list with control toggles" />
+        <figcaption>The host view — invite with a code, QR or link; manage every guest.</figcaption>
+      </figure>
+
+      <section aria-hidden="true"></section>
+    </div>
+    <footer>
+      MIT © <a href="https://jeanribeiro.dev">Jean Ribeiro</a> ·
+      <a href="https://github.com/jeeanribeiro/simple-remote-pair">github.com/jeeanribeiro/simple-remote-pair</a>
+    </footer>
+  </body>
+</html>

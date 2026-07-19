@@ -1,36 +1,70 @@
 {
   "name": "simple-remote-pair",
-  "version": "0.2.3",
-  "description": "Simple remote pairing web app",
-  "main": "server.js",
-  "scripts": {
-    "dev": "nodemon src/server.js",
-    "start": "npm run build && node src/server.js",
-    "build": "browserify src/client.js | terser > public/bundle.min.js"
-  },
+  "version": "1.0.0",
+  "description": "Self-hosted pair programming: stream your screen over WebRTC and hand mouse & keyboard to guests on your LAN or VPN. No cloud, no accounts.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Jean Ribeiro (https://jeanribeiro.dev)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jean-m-ribeiro/simple-pair.git"
+    "url": "git+https://github.com/jeeanribeiro/simple-remote-pair.git"
   },
-  "author": "Jean Ribeiro",
-  "license": "MIT",
+  "homepage": "https://jeeanribeiro.github.io/simple-remote-pair/",
   "bugs": {
-    "url": "https://github.com/jean-m-ribeiro/simple-pair/issues"
+    "url": "https://github.com/jeeanribeiro/simple-remote-pair/issues"
   },
-  "homepage": "https://github.com/jean-m-ribeiro/simple-pair#readme",
-  "devDependencies": {
-    "nodemon": "^2.0.3"
+  "keywords": [
+    "pair-programming",
+    "remote-control",
+    "screen-sharing",
+    "webrtc",
+    "websocket",
+    "robotjs",
+    "collaboration",
+    "self-hosted"
+  ],
+  "engines": {
+    "node": ">=20.19"
+  },
+  "bin": {
+    "simple-remote-pair": "bin/simple-remote-pair.js"
+  },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build",
+    "build:server": "tsc -p tsconfig.server.json",
+    "start": "node bin/simple-remote-pair.js",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "typecheck": "tsc -p tsconfig.server.json --noEmit && tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "desktop:dev": "cd desktop && tauri dev",
+    "desktop:build": "cd desktop && tauri build"
   },
   "dependencies": {
-    "browserify": "^16.5.1",
-    "cors": "^2.8.5",
-    "ejs": "^3.1.2",
-    "express": "^4.17.1",
-    "robotjs": "^0.6.0",
-    "simple-peer": "^9.7.0",
-    "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.0",
-    "terser": "^4.6.12",
-    "wrtc": "^0.4.4"
+    "sirv": "^3.0.2",
+    "uqr": "^0.1.3",
+    "ws": "^8.21.1"
+  },
+  "optionalDependencies": {
+    "@hurdlegroup/robotjs": "^0.12.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.4",
+    "@playwright/test": "^1.61.1",
+    "@tauri-apps/cli": "^2.11.4",
+    "@types/node": "^26.1.1",
+    "@types/ws": "^8.18.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10"
   }
 }

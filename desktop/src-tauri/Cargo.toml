@@ -1,0 +1,30 @@
+[package]
+name = "simple-remote-pair"
+version = "1.0.0"
+description = "Self-hosted screen sharing with remote mouse & keyboard control"
+authors = ["Jean Ribeiro"]
+license = "MIT"
+repository = "https://github.com/jeeanribeiro/simple-remote-pair"
+edition = "2021"
+rust-version = "1.77"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+axum = { version = "0.8", features = ["ws"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "sync", "time"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rand = "0.9"
+rust-embed = "8"
+mime_guess = "2"
+enigo = "0.6"
+local-ip-address = "0.6"
+futures-util = "0.3"
+
+[profile.release]
+codegen-units = 1
+lto = true
+strip = true
