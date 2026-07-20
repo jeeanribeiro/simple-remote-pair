@@ -5,6 +5,34 @@ interface RecordedInjection {
   args: (string | number | boolean)[];
 }
 
+/**
+ * Stub getDisplayMedia with a canvas-drawn stream. Headless CI can't do real
+ * screen capture, and this keeps the test off the real desktop everywhere.
+ */
+const GET_DISPLAY_MEDIA_STUB = () => {
+  navigator.mediaDevices.getDisplayMedia = async () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1280;
+    canvas.height = 720;
+    const ctx = canvas.getContext('2d');
+    let tick = 0;
+    const draw = () => {
+      tick++;
+      if (ctx) {
+        ctx.fillStyle = '#0d1117';
+        ctx.fillRect(0, 0, 1280, 720);
+        ctx.fillStyle = '#34d0b6';
+        ctx.fillRect((tick * 7) % 1200, 340, 60, 40);
+      }
+      requestAnimationFrame(draw);
+    };
+    draw();
+    return (canvas as HTMLCanvasElement & { captureStream(fps: number): MediaStream }).captureStream(
+      30,
+    );
+  };
+};
+
 async function readInjections(page: Page): Promise<RecordedInjection[]> {
   const body = await page.evaluate(async () => {
     const res = await fetch('/__test/injections');
@@ -18,6 +46,7 @@ async function clearInjections(page: Page): Promise<void> {
 }
 
 async function startHosting(context: BrowserContext): Promise<{ page: Page; code: string }> {
+  await context.addInitScript(GET_DISPLAY_MEDIA_STUB);
   const page = await context.newPage();
   await page.goto('/#/host');
   const codeEl = page.locator('.session-code');

@@ -13,12 +13,6 @@ use enigo::{Axis, Button, Coordinate, Direction, Enigo, Keyboard, Mouse, Setting
 use crate::keymap::{map_key, MappedKey};
 use crate::protocol::MouseButton;
 
-/// Wheel notch multiplier: platforms differ in what one `scroll` step means.
-#[cfg(target_os = "windows")]
-const SCROLL_STEP: i32 = 1;
-#[cfg(not(target_os = "windows"))]
-const SCROLL_STEP: i32 = 1;
-
 pub enum InjectCmd {
     /// Normalized [0, 1] coordinates.
     Move {
@@ -105,11 +99,11 @@ fn run(enigo: &mut Enigo, rx: mpsc::Receiver<InjectCmd>) {
             }
             InjectCmd::Scroll { dx, dy } => {
                 if dx != 0 {
-                    let _ = enigo.scroll(dx * SCROLL_STEP, Axis::Horizontal);
+                    let _ = enigo.scroll(dx, Axis::Horizontal);
                 }
                 if dy != 0 {
                     // enigo scrolls down for positive; our notches are up-positive.
-                    let _ = enigo.scroll(-dy * SCROLL_STEP, Axis::Vertical);
+                    let _ = enigo.scroll(-dy, Axis::Vertical);
                 }
             }
             InjectCmd::Key { key, down } => match map_key(&key) {
