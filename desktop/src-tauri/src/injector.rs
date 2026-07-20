@@ -110,12 +110,11 @@ fn run(enigo: &mut Enigo, rx: mpsc::Receiver<InjectCmd>) {
                 Some(MappedKey::Toggle(k)) => {
                     let _ = enigo.key(k, direction(down));
                 }
-                Some(MappedKey::Text(text)) => {
-                    if down {
-                        let _ = enigo.text(&text);
-                    }
+                // Text keys only inject on press; releasing them is a no-op.
+                Some(MappedKey::Text(text)) if down => {
+                    let _ = enigo.text(&text);
                 }
-                None => {}
+                _ => {}
             },
         }
     }

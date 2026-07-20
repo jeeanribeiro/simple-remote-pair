@@ -27,9 +27,9 @@ const GET_DISPLAY_MEDIA_STUB = () => {
       requestAnimationFrame(draw);
     };
     draw();
-    return (canvas as HTMLCanvasElement & { captureStream(fps: number): MediaStream }).captureStream(
-      30,
-    );
+    return (
+      canvas as HTMLCanvasElement & { captureStream(fps: number): MediaStream }
+    ).captureStream(30);
   };
 };
 
